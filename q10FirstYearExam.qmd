@@ -1,0 +1,51 @@
+---
+title: "1st Year Exam"
+author: "Isabel Mejia"
+format: html
+---
+
+I will use read.csv() to import the COVID-19 variant data from the California Health and Human Services open data site
+```{r}
+variant_data <- read.csv("covid19_variants.csv")
+```
+
+In this next chunk, I will load the approrpiate packages to help with graphing of the data
+```{r}
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(scales)
+```
+
+Using as.Date to convert the characters representing the date to the class "Date"
+
+```{r}
+variant_data$date <- as.Date(variant_data$date)
+```
+
+The data in the data table includes the sum of the variants but I do not want that on my plot so I am going to filter those rows out 
+```{r}
+variants_only <- filter(variant_data, percentage<100)
+head(variants_only)
+```
+
+The data has unclassified variants as "Other" but I do not want to plot those so I am going to filter those out as well.
+```{r}
+variants_name <- filter(variants_only, variant_name != "Other")
+head(variants_name)
+```
+
+```{r}
+variants_name$date <- as.Date(variants_name$date)
+```
+
+```{r}
+variant_plot <- ggplot(variants_name)+
+  aes(date, percentage, group=variant_name, color=variant_name )+
+  geom_line()
+variant_plot <- variant_plot+labs(x="", y="Percentage of sequenced specimens", title="COVID-19 Variants in California", caption="Data Source: <https://www.cdph.ca.gov/>")
+variant_plot <- variant_plot+scale_x_date(date_breaks = "1 month", date_labels = "%b\n%Y")
+variant_plot <- variant_plot+ theme(axis.text.x = element_text(angle = 45))
+variant_plot
+```
+
