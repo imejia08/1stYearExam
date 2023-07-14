@@ -124,6 +124,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<section id="reading-in-the-csv-file" class="level1">
+<h1>Reading in the CSV file</h1>
 <p>I will use read.csv() to import the COVID-19 variant data from the California Health and Human Services open data site. The head() will help me visualize the first few lines of the csv file to get an idea of what the data looks like</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>variant_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"covid19_variants.csv"</span>)</span>
@@ -145,6 +147,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 6               NA                NA</code></pre>
 </div>
 </div>
+</section>
+<section id="loading-in-packages-needed-for-filter-data-and-graphing" class="level1">
+<h1>Loading in Packages needed for filter data and graphing</h1>
 <p>In this next chunk, I will load the approrpiate packages to help with graphing of the data (Lubridate will help with dealing with dates, dplyr will help with filter and isolating which data to graph, ggplot will help with the actual plotting)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -186,10 +191,16 @@ Attaching package: 'dplyr'</code></pre>
 <pre><code>Warning: package 'ggplot2' was built under R version 4.2.2</code></pre>
 </div>
 </div>
+</section>
+<section id="converting-dates" class="level1">
+<h1>Converting Dates</h1>
 <p>Using as.Date to convert the characters representing the date to the class “Date”</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>variant_data<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(variant_data<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="filtering-out-total-and-other" class="level1">
+<h1>Filtering out Total and Other</h1>
 <p>The data in the data table includes the sum of the variants but I do not want that on my plot so I am going to filter those rows out</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>variants_only <span class="ot">&lt;-</span> <span class="fu">filter</span>(variant_data, percentage<span class="sc">&lt;</span><span class="dv">100</span>)</span>
@@ -232,6 +243,9 @@ Attaching package: 'dplyr'</code></pre>
 6               NA                NA</code></pre>
 </div>
 </div>
+</section>
+<section id="plotting-the-variant-data" class="level1">
+<h1>Plotting the Variant Data</h1>
 <p>Here I will plot the filtered data using ggplot. I will plot the date and percentage for each variant using geom_line() and will color the data by the variant name to be able to distinguish the data for each variant.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>variant_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(variants_name)<span class="sc">+</span></span>
@@ -256,13 +270,16 @@ Attaching package: 'dplyr'</code></pre>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>variant_plot <span class="ot">&lt;-</span> variant_plot<span class="sc">+</span> </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span><span class="dv">45</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">size=</span><span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now to actually see the plot!!!</p>
+</section>
+<section id="now-to-actually-see-the-plot" class="level1">
+<h1>Now to actually see the plot!!!</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>variant_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="q10FirstYearExam_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
 
 </main>
 <!-- /main column -->
