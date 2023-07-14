@@ -168,6 +168,7 @@ Attaching package: 'dplyr'</code></pre>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'ggplot2' was built under R version 4.2.2</code></pre>
 </div>
+<<<<<<< HEAD
 </div>
 <p>Using as.Date to convert the characters representing the date to the class “Date”</p>
 <div class="cell">
@@ -177,6 +178,18 @@ Attaching package: 'dplyr'</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>variants_only <span class="ot">&lt;-</span> <span class="fu">filter</span>(variant_data, percentage<span class="sc">&lt;</span><span class="dv">100</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(variants_only)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+=======
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using as.Date to convert the characters representing the date to the class “Date”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>variant_data<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(variant_data<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data in the data table includes the sum of the variants but I do not want that on my plot so I am going to filter those rows out</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>variants_only <span class="ot">&lt;-</span> <span class="fu">filter</span>(variant_data, percentage<span class="sc">&lt;</span><span class="dv">100</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(variants_only)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+>>>>>>> 90ea6e52e894d215451fc764d6cc7e056eed6f81
 <div class="cell-output cell-output-stdout">
 <pre><code>        date       area area_type variant_name specimens percentage
 1 2021-01-01 California     State      Epsilon        29      48.33
@@ -196,8 +209,13 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>The data has unclassified variants as “Other” but I do not want to plot those so I am going to filter those out as well.</p>
 <div class="cell">
+<<<<<<< HEAD
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>variants_name <span class="ot">&lt;-</span> <span class="fu">filter</span>(variants_only, variant_name <span class="sc">!=</span> <span class="st">"Other"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(variants_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+=======
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>variants_name <span class="ot">&lt;-</span> <span class="fu">filter</span>(variants_only, variant_name <span class="sc">!=</span> <span class="st">"Other"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(variants_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+>>>>>>> 90ea6e52e894d215451fc764d6cc7e056eed6f81
 <div class="cell-output cell-output-stdout">
 <pre><code>        date       area area_type variant_name specimens percentage
 1 2021-01-01 California     State      Epsilon        29      48.33
@@ -216,6 +234,7 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 </div>
 <div class="cell">
+<<<<<<< HEAD
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Here I will plot the filtered data using ggplot. I will plot the date and percentage for each variant using geom_line() and will color the data by the variant name to be able to distinguish the data for each variant.</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>variant_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(variants_name)<span class="sc">+</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(date, percentage, <span class="at">color=</span>variant_name )<span class="sc">+</span></span>
@@ -229,6 +248,18 @@ Attaching package: 'dplyr'</code></pre>
 <p>Now to actually see the plot!!!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>variant_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+=======
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>variants_name<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(variants_name<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>variant_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(variants_name)<span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(date, percentage, <span class="at">group=</span>variant_name, <span class="at">color=</span>variant_name )<span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>variant_plot <span class="ot">&lt;-</span> variant_plot<span class="sc">+</span><span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Percentage of sequenced specimens"</span>, <span class="at">title=</span><span class="st">"COVID-19 Variants in California"</span>, <span class="at">caption=</span><span class="st">"Data Source: &lt;https://www.cdph.ca.gov/&gt;"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>variant_plot <span class="ot">&lt;-</span> variant_plot<span class="sc">+</span><span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">"1 month"</span>, <span class="at">date_labels =</span> <span class="st">"%b</span><span class="sc">\n</span><span class="st">%Y"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>variant_plot <span class="ot">&lt;-</span> variant_plot<span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>variant_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+>>>>>>> 90ea6e52e894d215451fc764d6cc7e056eed6f81
 <div class="cell-output-display">
 <p><img src="q10FirstYearExam_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>

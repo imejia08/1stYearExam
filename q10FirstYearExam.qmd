@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 title: "1st Year Exam Question 10"
 author: "Isabel Mejia A13671511"
 format: pdf
@@ -11,10 +12,27 @@ head(variant_data)
 ```
 
 In this next chunk, I will load the approrpiate packages to help with graphing of the data (Lubridate will help with dealing with dates, dplyr will help with filter and isolating which data to graph, ggplot will help with the actual plotting)
+=======
+title: "1st Year Exam"
+author: "Isabel Mejia"
+format: html
+---
+
+I will use read.csv() to import the COVID-19 variant data from the California Health and Human Services open data site
+```{r}
+variant_data <- read.csv("covid19_variants.csv")
+```
+
+In this next chunk, I will load the approrpiate packages to help with graphing of the data
+>>>>>>> 90ea6e52e894d215451fc764d6cc7e056eed6f81
 ```{r}
 library(lubridate)
 library(dplyr)
 library(ggplot2)
+<<<<<<< HEAD
+=======
+library(scales)
+>>>>>>> 90ea6e52e894d215451fc764d6cc7e056eed6f81
 ```
 
 Using as.Date to convert the characters representing the date to the class "Date"
@@ -34,6 +52,7 @@ The data has unclassified variants as "Other" but I do not want to plot those so
 variants_name <- filter(variants_only, variant_name != "Other")
 head(variants_name)
 ```
+<<<<<<< HEAD
 Here I will plot the filtered data using ggplot. I will plot the date and percentage for each variant using geom_line() and will color the data by the variant name to be able to distinguish the data for each variant.
 ```{r}
 variant_plot <- ggplot(variants_name)+
@@ -60,6 +79,20 @@ variant_plot <- variant_plot+ theme(axis.text.x = element_text(angle =45, hjust=
 
 Now to actually see the plot!!!
 ```{r}
+=======
+
+```{r}
+variants_name$date <- as.Date(variants_name$date)
+```
+
+```{r}
+variant_plot <- ggplot(variants_name)+
+  aes(date, percentage, group=variant_name, color=variant_name )+
+  geom_line()
+variant_plot <- variant_plot+labs(x="", y="Percentage of sequenced specimens", title="COVID-19 Variants in California", caption="Data Source: <https://www.cdph.ca.gov/>")
+variant_plot <- variant_plot+scale_x_date(date_breaks = "1 month", date_labels = "%b\n%Y")
+variant_plot <- variant_plot+ theme(axis.text.x = element_text(angle = 45))
+>>>>>>> 90ea6e52e894d215451fc764d6cc7e056eed6f81
 variant_plot
 ```
 
